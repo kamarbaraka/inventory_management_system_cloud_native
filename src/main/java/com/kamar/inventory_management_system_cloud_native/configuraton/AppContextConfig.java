@@ -5,6 +5,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.hateoas.config.EnableHypermediaSupport;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
@@ -18,5 +19,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @ComponentScan(basePackages = {"com.kamar.inventory_management_system_cloud_native.components"})
 @EntityScan(basePackages = {"com.kamar.inventory_management_system_cloud_native.components.persistence.entities"})
 @EnableHypermediaSupport(type = {EnableHypermediaSupport.HypermediaType.HAL})
+@EnableTransactionManagement
 public class AppContextConfig {
 }

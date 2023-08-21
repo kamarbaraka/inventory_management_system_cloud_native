@@ -17,8 +17,13 @@ public class UserRole {
 
     private String roleDescription;
 
+
     public String getRoleName() {
         return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public String getRoleDescription() {
