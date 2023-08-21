@@ -1,9 +1,7 @@
 package com.kamar.inventory_management_system_cloud_native.components.persistence.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
+import org.springframework.hateoas.config.EnableHypermediaSupport;
 
 import java.time.LocalDateTime;
 
@@ -29,7 +27,19 @@ public class User {
 
     private String password;
 
+    @Lob
+    @Column(columnDefinition = "BLOB")
+    private byte[] profilePicture;
+
     private final LocalDateTime registrationDate = LocalDateTime.now();
+
+    public byte[] getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(byte[] profilePicture) {
+        this.profilePicture = profilePicture;
+    }
 
     public String getUsername() {
         return username;
