@@ -16,9 +16,10 @@ public class Customer {
     @GeneratedValue
     private long customerId;
 
+    @Column(unique = true)
     private String customerUsername;
 
-    private String customerName;
+    private String customerFullName;
 
     private String customerContact;
 
@@ -47,12 +48,12 @@ public class Customer {
         this.customerUsername = customerUsername;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public String getCustomerFullName() {
+        return customerFullName;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setCustomerFullName(String customerName) {
+        this.customerFullName = customerName;
     }
 
     public String getCustomerContact() {

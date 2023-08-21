@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * a user controller to expose all user endpoints.
+ * a daemon controller to expose all daemon endpoints.
  * @author kamar baraka.*/
 
 @RestController
-@RequestMapping(value = "/user", consumes = {"application/json", "plain/text"}, produces = {"application/json"})
+@RequestMapping(value = "/daemon", consumes = {"application/json", "text/plain"}, produces = {"application/json"})
 @CrossOrigin
-public class UserController {
+public class DaemonController {
 }
