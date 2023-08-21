@@ -10,6 +10,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author kamar baraka.*/
 
 @RepositoryRestResource
-@RequestMapping(value = {"/admin/payment"})
 public interface PaymentRepository extends CrudRepository<Payment, Long> {
 }

@@ -10,6 +10,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author kamar baraka.*/
 
 @RepositoryRestResource
-@RequestMapping(value = {"/admin/location"})
 public interface ItemLocationRepository extends CrudRepository<ItemLocation, Long> {
 }

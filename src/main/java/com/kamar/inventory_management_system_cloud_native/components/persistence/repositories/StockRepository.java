@@ -11,6 +11,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @RepositoryRestResource
-@RequestMapping(value = {"/admin/stock"})
 public interface StockRepository extends CrudRepository<Stock, String > {
 }

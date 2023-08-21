@@ -20,7 +20,7 @@ public class User {
 
     private String lastName;
 
-    @OneToOne
+    @ManyToOne
     private UserRole role;
 
     @ManyToOne

@@ -4,5 +4,15 @@ package com.kamar.inventory_management_system_cloud_native.components.presentati
  * an interface to present user delete response.
  * @author kamar baraka.*/
 
-public interface UserDeleteResponse {
+public class UserDeleteResponse {
+
+    private String message;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }

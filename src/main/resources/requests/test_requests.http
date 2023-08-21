@@ -1,0 +1,73 @@
+#### user registration
+POST {{host}}/user/register
+Content-Type: application/json
+
+{
+  "username": "kamarbaraka",
+  "firstName": "kamar",
+  "lastName": "baraka",
+  "role": {
+    "roleName": "ADMIN",
+    "roleDescription": "system admin"
+  },
+  "address": {
+    "street": "starehe",
+    "city": "Thika",
+    "country": "Kenya",
+    "zipcode": "456328"
+  },
+  "password": "123456",
+  "profilePicture": [
+    ""
+  ]
+}
+
+### user login
+POST {{host}}/user/login
+Content-Type: application/json
+
+{
+  "username": "mimiwat",
+  "password": "123456"
+}
+
+### user fetch
+GET {{host}}/user/fetch?username=mimiwathua
+Content-Type: application/json
+
+### update user
+PUT {{host}}/user/update
+Content-Type: application/json
+
+{
+  "username": "kamarbaraka",
+  "password": "123456",
+  "user": {
+  "username": "kimonje",
+  "firstName": "kamar",
+  "lastName": "baraka",
+  "role": {
+    "roleName": "ADMIN",
+    "roleDescription": "system admin"
+  },
+  "address": {
+    "street": "piloti",
+    "city": "Thika",
+    "country": "Uganda",
+    "zipcode": "456328"
+  },
+  "password": "123456",
+  "profilePicture": [
+    ""
+  ]
+}
+}
+
+### delete user
+DELETE {{host}}/user/delete
+Content-Type: application/json
+
+{
+  "username": "samonte",
+  "password": "123456"
+}

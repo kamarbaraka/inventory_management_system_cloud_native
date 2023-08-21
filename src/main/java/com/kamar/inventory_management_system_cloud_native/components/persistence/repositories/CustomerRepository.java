@@ -11,6 +11,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author kamar baraka.*/
 
 @RepositoryRestResource
-@RequestMapping(value = {"/admin/customer"})
 public interface CustomerRepository extends CrudRepository<Customer, String > {
 }
