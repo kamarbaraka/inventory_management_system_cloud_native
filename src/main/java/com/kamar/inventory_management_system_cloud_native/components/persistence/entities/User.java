@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 public class User {
 
     @Id
+    @Column(unique = true)
     private String username;
 
     private String firstName;

@@ -7,33 +7,35 @@ import jakarta.persistence.*;
  * @author kamar baraka.*/
 
 @Entity
-@Table(
-        uniqueConstraints = @UniqueConstraint(columnNames = {"customer_username", })
-)
 public class Customer {
 
     @Id
-    @GeneratedValue
-    private long customerId;
-
     @Column(unique = true)
-    private String customerUsername;
+    private String username;
 
-    private String customerFullName;
+    private String fullName;
 
-    private String customerContact;
+    private String contact;
 
     private String password;
 
     @ManyToOne
     private Address address;
 
-    public long getCustomerId() {
-        return customerId;
+    @Lob
+    @Column(columnDefinition = "BLOB")
+    private byte[] profilePicture;
+
+    public String getUsername() {
+        return username;
     }
 
-    public String getCustomerUsername() {
-        return customerUsername;
+    public byte[] getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(byte[] profilePicture) {
+        this.profilePicture = profilePicture;
     }
 
     public String getPassword() {
@@ -44,24 +46,24 @@ public class Customer {
         this.password = password;
     }
 
-    public void setCustomerUsername(String customerUsername) {
-        this.customerUsername = customerUsername;
+    public void setUsername(String customerUsername) {
+        this.username = customerUsername;
     }
 
-    public String getCustomerFullName() {
-        return customerFullName;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setCustomerFullName(String customerName) {
-        this.customerFullName = customerName;
+    public void setFullName(String customerName) {
+        this.fullName = customerName;
     }
 
-    public String getCustomerContact() {
-        return customerContact;
+    public String getContact() {
+        return contact;
     }
 
-    public void setCustomerContact(String customerContact) {
-        this.customerContact = customerContact;
+    public void setContact(String customerContact) {
+        this.contact = customerContact;
     }
 
     public Address getAddress() {

@@ -1,8 +1,6 @@
 package com.kamar.inventory_management_system_cloud_native.components.persistence.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
@@ -11,24 +9,39 @@ import java.math.BigDecimal;
  * @author kamar baraka.*/
 
 @Entity
-public class Item {
+public class Stock {
 
     @Id
-    @GeneratedValue
-    private long itemId;
-
-    public long getItemId() {
-        return itemId;
-    }
-
+    @Column(unique = true)
     private String itemName;
 
     private String itemCode;
+
+    private int itemCount;
+
+    @OneToOne
+    private ItemLocation location;
 
     private BigDecimal itemPrice;
 
     public String getItemName() {
         return itemName;
+    }
+
+    public int getItemCount() {
+        return itemCount;
+    }
+
+    public void setItemCount(int itemCount) {
+        this.itemCount = itemCount;
+    }
+
+    public ItemLocation getLocation() {
+        return location;
+    }
+
+    public void setLocation(ItemLocation location) {
+        this.location = location;
     }
 
     public void setItemName(String itemName) {

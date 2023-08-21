@@ -16,11 +16,14 @@ public class ItemOrder {
     @GeneratedValue
     private long orderId;
 
+    @ManyToOne
+    private Customer customer;
+
     @OneToMany
-    private final Collection<Item> items = new ArrayList<>();
+    private final Collection<Stock> stocks = new ArrayList<>();
 
     @ManyToOne
-    private Bill bill;
+    private Transaction transaction;
 
     private String orderStatus;
 
@@ -28,12 +31,20 @@ public class ItemOrder {
         return orderId;
     }
 
-    public Bill getBill() {
-        return bill;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setBill(Bill bill) {
-        this.bill = bill;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Transaction getBill() {
+        return transaction;
+    }
+
+    public void setBill(Transaction transaction) {
+        this.transaction = transaction;
     }
 
     public String getOrderStatus() {
@@ -44,7 +55,7 @@ public class ItemOrder {
         this.orderStatus = orderStatus;
     }
 
-    public Collection<Item> getItems() {
-        return items;
+    public Collection<Stock> getItems() {
+        return stocks;
     }
 }
