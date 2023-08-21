@@ -1,5 +1,6 @@
 package com.kamar.inventory_management_system_cloud_native.components.persistence.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -11,6 +12,7 @@ import jakarta.persistence.Id;
 public class UserRole {
 
     @Id
+    @Column(unique = true)
     private String roleName;
 
     private String roleDescription;
