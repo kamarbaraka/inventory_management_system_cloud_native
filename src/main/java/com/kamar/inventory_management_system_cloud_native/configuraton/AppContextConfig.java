@@ -16,9 +16,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @Configuration
 @EnableWebMvc
 @EnableAspectJAutoProxy
+@EnableTransactionManagement
 @ComponentScan(basePackages = {"com.kamar.inventory_management_system_cloud_native.components"})
 @EntityScan(basePackages = {"com.kamar.inventory_management_system_cloud_native.components.persistence.entities"})
-@EnableHypermediaSupport(type = {EnableHypermediaSupport.HypermediaType.HAL})
-@EnableTransactionManagement
+@EnableHypermediaSupport(type = {EnableHypermediaSupport.HypermediaType.HAL, EnableHypermediaSupport.HypermediaType.COLLECTION_JSON})
 public class AppContextConfig {
 }

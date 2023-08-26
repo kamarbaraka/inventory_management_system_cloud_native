@@ -1,17 +1,16 @@
-package com.kamar.inventory_management_system_cloud_native.components.presentation.response_bodies.interfaces.customer;
+package com.kamar.inventory_management_system_cloud_native.components.presentation.response_bodies.implementation.user;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kamar.inventory_management_system_cloud_native.components.persistence.entities.User;
-import org.springframework.web.bind.annotation.ResponseBody;
+import com.kamar.inventory_management_system_cloud_native.components.presentation.response_bodies.interfaces.UserResponse;
 
 /**
- * an interface to present customer register response.
+ * an interface to represent user login response.
  * @author kamar baraka.*/
 
-@ResponseBody
-public class CustomerRegisterResponse {
+public class UserLoginResponse implements UserResponse {
 
     private String message;
+
     private User user;
 
     public String getMessage() {

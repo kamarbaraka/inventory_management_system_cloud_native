@@ -1,7 +1,7 @@
 package com.kamar.inventory_management_system_cloud_native.components.persistence.entities;
 
 import jakarta.persistence.*;
-import org.springframework.hateoas.config.EnableHypermediaSupport;
+
 
 import java.time.LocalDateTime;
 
@@ -20,6 +20,8 @@ public class User {
 
     private String lastName;
 
+    private String contact;
+    
     @ManyToOne
     private UserRole role;
 
@@ -40,6 +42,18 @@ public class User {
 
     public void setProfilePicture(byte[] profilePicture) {
         this.profilePicture = profilePicture;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
     public String getUsername() {

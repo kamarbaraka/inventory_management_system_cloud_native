@@ -17,7 +17,7 @@ public class ItemOrder {
     private long orderId;
 
     @ManyToOne
-    private Customer customer;
+    private User customer;
 
     @OneToMany
     private final Collection<Stock> stocks = new ArrayList<>();
@@ -31,11 +31,11 @@ public class ItemOrder {
         return orderId;
     }
 
-    public Customer getCustomer() {
+    public User getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    public void setCustomer(User customer) {
         this.customer = customer;
     }
 

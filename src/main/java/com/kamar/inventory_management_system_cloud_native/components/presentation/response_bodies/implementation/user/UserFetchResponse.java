@@ -1,12 +1,14 @@
-package com.kamar.inventory_management_system_cloud_native.components.presentation.response_bodies.interfaces.user;
+package com.kamar.inventory_management_system_cloud_native.components.presentation.response_bodies.implementation.user;
 
 import com.kamar.inventory_management_system_cloud_native.components.persistence.entities.User;
+import com.kamar.inventory_management_system_cloud_native.components.presentation.response_bodies.interfaces.UserResponse;
+
 
 /**
- * an interface to represent user login response.
+ * an interface to represent user fetch response.
  * @author kamar baraka.*/
 
-public class UserLoginResponse {
+public class UserFetchResponse implements UserResponse {
 
     private String message;
 

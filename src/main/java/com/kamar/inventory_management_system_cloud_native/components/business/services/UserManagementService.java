@@ -11,6 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 /**
  * an administrative service to manage the user.
  * @author kamar baraka.*/
@@ -81,5 +85,13 @@ public class UserManagementService {
         this.userRepository.deleteUserByUsernameAndPassword(requestBody.getUsername(), requestBody.getPassword());
 
         return true;
+    }
+
+    public List<User> users(){
+
+        List<User> userList = new ArrayList<>();
+        this.userRepository.findAll().forEach(userList::add);
+
+        return userList;
     }
 }

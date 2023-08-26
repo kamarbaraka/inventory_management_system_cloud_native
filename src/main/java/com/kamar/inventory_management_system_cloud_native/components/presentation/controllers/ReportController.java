@@ -1,6 +1,6 @@
 package com.kamar.inventory_management_system_cloud_native.components.presentation.controllers;
 
-import com.kamar.inventory_management_system_cloud_native.components.presentation.response_bodies.interfaces.report.CustomerReportResponse;
+import com.kamar.inventory_management_system_cloud_native.components.presentation.response_bodies.implementation.report.CustomerReportResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
