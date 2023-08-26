@@ -1,14 +1,12 @@
 package com.kamar.inventory_management_system_cloud_native.components.presentation.controllers;
 
 import com.kamar.inventory_management_system_cloud_native.components.persistence.entities.ItemOrder;
-import com.kamar.inventory_management_system_cloud_native.components.presentation.response_bodies.interfaces.order.OrderAddResponse;
-import com.kamar.inventory_management_system_cloud_native.components.presentation.response_bodies.interfaces.order.OrderDeleteResponse;
-import com.kamar.inventory_management_system_cloud_native.components.presentation.response_bodies.interfaces.order.OrderFetchResponse;
-import com.kamar.inventory_management_system_cloud_native.components.presentation.response_bodies.interfaces.order.OrderUpdateResponse;
+import com.kamar.inventory_management_system_cloud_native.components.presentation.response_bodies.implementation.order.OrderAddResponse;
+import com.kamar.inventory_management_system_cloud_native.components.presentation.response_bodies.implementation.order.OrderDeleteResponse;
+import com.kamar.inventory_management_system_cloud_native.components.presentation.response_bodies.implementation.order.OrderFetchResponse;
+import com.kamar.inventory_management_system_cloud_native.components.presentation.response_bodies.implementation.order.OrderUpdateResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 /**
  * an order controller to expose all order endpoints.

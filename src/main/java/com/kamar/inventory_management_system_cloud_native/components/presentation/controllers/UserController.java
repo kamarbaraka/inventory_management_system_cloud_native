@@ -5,18 +5,18 @@ import com.kamar.inventory_management_system_cloud_native.components.persistence
 import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.UserDeleteRequestBody;
 import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.UserLoginRequestBody;
 import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.UserUpdateRequestBody;
-import com.kamar.inventory_management_system_cloud_native.components.presentation.response_bodies.interfaces.user.*;
+import com.kamar.inventory_management_system_cloud_native.components.presentation.response_bodies.implementation.user.*;
+import com.kamar.inventory_management_system_cloud_native.components.presentation.response_bodies.interfaces.UserResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 /**
  * a user controller to expose all user endpoints.
  * @author kamar baraka.*/
 
 @RestController
-@RequestMapping(value = "/user", consumes = {"application/json", "plain/text"}, produces = {"application/json"})
-@CrossOrigin
 public class UserController {
 
     private UserManagementService userManagementService;
@@ -38,7 +38,7 @@ public class UserController {
      * <em>password</em> - the user password.
      * <em>profile_picture</em> - The profile picture of the user as bytes.
      * @param requestBody the body of the request.*/
-    @PostMapping(value = "/register", consumes = {"application/json", "application/octet-stream"}, produces = {
+    @PostMapping(value = "user/register", consumes = {"application/json", "application/octet-stream"}, produces = {
             "application/json"})
     @CrossOrigin(methods = {RequestMethod.POST})
     public ResponseEntity<UserRegistrationResponse> register(@RequestBody User requestBody){
@@ -62,7 +62,7 @@ public class UserController {
      * <em>password</em> - the password of the user.
      * @param requestBody the body of the request.*/
     /*allowed exposed endpoint and request method*/
-    @PostMapping(value = "/login", consumes = {"application/json", "plain/text"}, produces = {"application/json"})
+    @PostMapping(value = "user/login", consumes = {"application/json", "plain/text"}, produces = {"application/json"})
     @CrossOrigin(methods = {RequestMethod.POST})
     public ResponseEntity<UserLoginResponse> login(@RequestBody UserLoginRequestBody requestBody){
 
@@ -82,9 +82,9 @@ public class UserController {
         return new ResponseEntity<>(loginResponse, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/fetch", consumes = {"application/json", "text/plain"}, produces = {"application/json"})
+    @GetMapping(value = "user/fetch", consumes = {"application/json", "text/plain"}, produces = {"application/json"})
     @CrossOrigin(methods = {RequestMethod.GET})
-    public ResponseEntity<UserFetchResponse> fetch(@RequestParam("username") String username){
+    public ResponseEntity<UserFetchResponse> fetch(@RequestParam(value = "username") String username){
         UserFetchResponse fetchResponse = new UserFetchResponse();
         User user = userManagementService.fetch(username);
 
@@ -102,7 +102,7 @@ public class UserController {
         return new ResponseEntity<>(fetchResponse, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/update", consumes = {"application/json", "text/plain"}, produces = {"application/json"})
+    @PutMapping(value = "user/update", consumes = {"application/json", "text/plain"}, produces = {"application/json"})
     @CrossOrigin(methods = {RequestMethod.PUT})
     public ResponseEntity<UserUpdateResponse> update(@RequestBody UserUpdateRequestBody requestBody){
 
@@ -123,7 +123,7 @@ public class UserController {
         return new ResponseEntity<>(updateResponse, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/delete", consumes = {"application/json", "text/plain"}, produces = {"application/json"})
+    @DeleteMapping(value = "user/delete", consumes = {"application/json", "text/plain"}, produces = {"application/json"})
     @CrossOrigin(methods = {RequestMethod.DELETE})
     public ResponseEntity<UserDeleteResponse> delete(@RequestBody UserDeleteRequestBody requestBody){
 
@@ -137,5 +137,23 @@ public class UserController {
 
         response.setMessage("successfully deleted");
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping(value = {"/user"}, consumes = {"application/json", "text/plain"}, produces = {"application/json"})
+    @CrossOrigin(methods = {RequestMethod.GET})
+    public ResponseEntity<UserResponse> getUsers(){
+
+        /*define the response*/
+        Users userResponse = new Users();
+
+        /*get all users and add them to the response*/
+        userResponse.setUsers(this.userManagementService.users());
+
+        /*set the message*/
+        userResponse.setMessage("found %s".formatted(userResponse.getUsers().size()));
+
+        /*return the response*/
+        return new ResponseEntity<>(userResponse, HttpStatus.OK);
+
     }
 }

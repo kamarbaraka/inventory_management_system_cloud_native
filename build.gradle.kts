@@ -29,6 +29,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-rest")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
+//    implementation("org.springframework.boot:spring-boot-starter-security")
+
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("com.mysql:mysql-connector-j")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")

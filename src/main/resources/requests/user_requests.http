@@ -32,7 +32,7 @@ Content-Type: application/json
 }
 
 ### user fetch
-GET {{host}}/user/fetch?username=mimiwathua
+GET {{host}}/user/fetch?username=kamar254baraka@gmail.com
 Content-Type: application/json
 
 ### update user
@@ -70,4 +70,27 @@ Content-Type: application/json
 {
   "username": "samonte",
   "password": "123456"
+}
+
+### get all users
+GET {{host}}/user/fetch?username=mimiwathua
+Content-Type: application/json
+Cookie: JSESSIONID=17B92DED8E23925876ED55234C0788D0
+
+### get all stock
+GET {{host}}/stock
+Content-Type: application/json
+
+### add stock
+POST {{host}}/stock/add
+Content-Type: application/json
+
+{
+  "itemName": "spoon",
+  "itemCode": "123845679514",
+  "price": 23.0,
+  "location": {
+    "section": "secA",
+    "isle": 3
+  }
 }
