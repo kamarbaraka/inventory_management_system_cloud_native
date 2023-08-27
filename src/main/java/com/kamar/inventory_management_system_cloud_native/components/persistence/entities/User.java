@@ -21,11 +21,10 @@ public class User {
     private String lastName;
 
     private String contact;
-    
-    @ManyToOne
-    private UserRole role;
 
-    @ManyToOne
+    private String role;
+
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Address address;
 
     private String password;
@@ -33,6 +32,14 @@ public class User {
     @Lob
     @Column(columnDefinition = "BLOB")
     private byte[] profilePicture;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     private final LocalDateTime registrationDate = LocalDateTime.now();
 
@@ -74,14 +81,6 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public UserRole getRole() {
-        return role;
-    }
-
-    public void setRole(UserRole role) {
-        this.role = role;
     }
 
     public Address getAddress() {

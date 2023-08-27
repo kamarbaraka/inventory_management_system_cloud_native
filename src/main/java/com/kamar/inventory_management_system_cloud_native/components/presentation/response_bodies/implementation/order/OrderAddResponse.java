@@ -4,5 +4,25 @@ package com.kamar.inventory_management_system_cloud_native.components.presentati
  * an interface to present order add response.
  * @author kamar baraka.*/
 
-public interface OrderAddResponse {
+public class OrderAddResponse {
+
+    private String message;
+
+    private OrderDetails orderDetails;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public OrderDetails getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(OrderDetails orderDetails) {
+        this.orderDetails = orderDetails;
+    }
 }

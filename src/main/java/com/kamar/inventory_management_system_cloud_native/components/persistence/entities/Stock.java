@@ -19,7 +19,7 @@ public class Stock {
 
     private int itemCount;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private ItemLocation location;
 
     private BigDecimal itemPrice;

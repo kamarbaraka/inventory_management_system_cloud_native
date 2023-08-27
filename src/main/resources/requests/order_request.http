@@ -1,0 +1,12 @@
+### request an order
+POST {{host}}/order/request
+Content-Type: application/json
+
+{
+  "customerName": "kamarbaraka",
+  "items": [{
+    "itemName": "knife",
+    "itemCount": 12
+  }
+  ]
+}

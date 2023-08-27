@@ -23,9 +23,17 @@ public class ItemOrder {
     private final Collection<Stock> stocks = new ArrayList<>();
 
     @ManyToOne
-    private Transaction transaction;
+    private Payment payment;
 
     private String orderStatus;
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
 
     public long getOrderId() {
         return orderId;
@@ -37,14 +45,6 @@ public class ItemOrder {
 
     public void setCustomer(User customer) {
         this.customer = customer;
-    }
-
-    public Transaction getBill() {
-        return transaction;
-    }
-
-    public void setBill(Transaction transaction) {
-        this.transaction = transaction;
     }
 
     public String getOrderStatus() {
