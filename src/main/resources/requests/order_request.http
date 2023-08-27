@@ -4,9 +4,31 @@ Content-Type: application/json
 
 {
   "customerName": "kamarbaraka",
-  "items": [{
-    "itemName": "knife",
-    "itemCount": 12
-  }
+  "items": [
+    {
+      "itemName": "spoon",
+      "itemCount": 12
+    },
+    {
+      "itemName": "plate",
+      "itemCount": 20
+    }, {
+      "itemName": "glass",
+      "itemCount": 5
+    }
   ]
+}
+
+### add an order
+POST {{host}}/order/add
+Content-Type: application/json
+
+{
+  "orderId": 4,
+  "payment": {
+    "paymentType": "bank payment",
+    "bankName": "equity",
+    "accountName": "kamarbaraka",
+    "mobileNumber": "0706354825"
+  }
 }

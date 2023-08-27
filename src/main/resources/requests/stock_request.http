@@ -4,13 +4,13 @@ Content-Type: application/json
 
 {
   "location": {
-    "isle": 5,
+    "isle": 3,
     "section": "secA"
   },
-  "name": "glass",
-  "code": "1425145786",
-  "price": 85.0,
-  "count": 25
+  "name": "plate",
+  "code": "1789614567",
+  "price": 35.0,
+  "count": 36
 }
 
 ### delete stock
