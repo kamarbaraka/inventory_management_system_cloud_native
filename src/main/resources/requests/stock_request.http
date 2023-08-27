@@ -4,13 +4,13 @@ Content-Type: application/json
 
 {
   "location": {
-    "isle": 1,
+    "isle": 5,
     "section": "secA"
   },
-  "name": "spoon",
-  "code": "124548969",
-  "price": 15.0,
-  "count": 45
+  "name": "glass",
+  "code": "1425145786",
+  "price": 85.0,
+  "count": 25
 }
 
 ### delete stock
@@ -31,3 +31,7 @@ Content-Type: application/json
     "isle": 4
   }
 }
+
+### get stock
+GET {{host}}/stock/fetch?item_name=sufuria
+Content-Type: application/json

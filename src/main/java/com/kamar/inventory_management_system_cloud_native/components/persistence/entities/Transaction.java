@@ -12,10 +12,10 @@ import java.time.LocalDateTime;
 public class Transaction {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long transactionId;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Payment payment;
 
 

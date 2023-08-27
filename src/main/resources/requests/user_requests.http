@@ -3,15 +3,13 @@ POST {{host}}/user/register
 Content-Type: application/json
 
 {
-  "username": "kamarbaraka",
-  "firstName": "kamar",
-  "lastName": "baraka",
-  "role": {
-    "roleName": "ADMIN",
-    "roleDescription": "system admin"
-  },
+  "username": "edwinj",
+  "firstName": "edwin",
+  "lastName": "jakarta",
+  "role": "ADMIN",
+  "contact": "07124579",
   "address": {
-    "street": "starehe",
+    "street": "piloti",
     "city": "Thika",
     "country": "Kenya",
     "zipcode": "456328"

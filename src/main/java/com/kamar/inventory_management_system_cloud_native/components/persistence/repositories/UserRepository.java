@@ -18,10 +18,10 @@ public interface UserRepository extends CrudRepository<User, String > {
     @RestResource
     User findUserByUsernameAndPassword(@RequestParam("username") String username, @RequestParam("password") String password);
 
-
-
     @RestResource
     User findUserByUsername(@RequestParam("username") String username);
+
+    User findUserByUsernameAndRole(String username, String role);
 
     void deleteUserByUsernameAndPassword(String username, String password);
 }

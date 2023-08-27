@@ -3,16 +3,14 @@ package com.kamar.inventory_management_system_cloud_native.components.business.s
 import com.kamar.inventory_management_system_cloud_native.components.persistence.entities.User;
 import com.kamar.inventory_management_system_cloud_native.components.persistence.repositories.AddressRepository;
 import com.kamar.inventory_management_system_cloud_native.components.persistence.repositories.UserRepository;
-import com.kamar.inventory_management_system_cloud_native.components.persistence.repositories.UserRoleRepository;
-import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.UserDeleteRequestBody;
-import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.UserLoginRequestBody;
-import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.UserUpdateRequestBody;
+import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.user.UserDeleteRequestBody;
+import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.user.UserLoginRequestBody;
+import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.user.UserUpdateRequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -23,13 +21,11 @@ import java.util.List;
 public class UserManagementService {
 
     private UserRepository userRepository;
-    private UserRoleRepository roleRepository;
     private AddressRepository addressRepository;
 
     @Autowired
-    public UserManagementService(UserRepository userRepository, UserRoleRepository roleRepository, AddressRepository addressRepository) {
+    public UserManagementService(UserRepository userRepository, AddressRepository addressRepository) {
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
         this.addressRepository = addressRepository;
     }
 
@@ -41,8 +37,6 @@ public class UserManagementService {
 
         /*persist the address*/
         this.addressRepository.save(user.getAddress());
-        /*persist the role*/
-        this.roleRepository.save(user.getRole());
         /*persist the user*/
         this.userRepository.save(user);
 
@@ -72,7 +66,6 @@ public class UserManagementService {
 
         this.userRepository.deleteUserByUsernameAndPassword(requestBody.getUsername(), requestBody.getPassword());
         this.addressRepository.save(user.getAddress());
-        this.roleRepository.save(user.getRole());
         this.userRepository.save(user);
 
         return user;

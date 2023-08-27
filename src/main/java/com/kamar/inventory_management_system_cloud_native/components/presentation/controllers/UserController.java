@@ -2,9 +2,9 @@ package com.kamar.inventory_management_system_cloud_native.components.presentati
 
 import com.kamar.inventory_management_system_cloud_native.components.business.services.UserManagementService;
 import com.kamar.inventory_management_system_cloud_native.components.persistence.entities.User;
-import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.UserDeleteRequestBody;
-import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.UserLoginRequestBody;
-import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.UserUpdateRequestBody;
+import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.user.UserDeleteRequestBody;
+import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.user.UserLoginRequestBody;
+import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.user.UserUpdateRequestBody;
 import com.kamar.inventory_management_system_cloud_native.components.presentation.response_bodies.implementation.user.*;
 import com.kamar.inventory_management_system_cloud_native.components.presentation.response_bodies.interfaces.UserResponse;
 import org.springframework.http.HttpStatus;

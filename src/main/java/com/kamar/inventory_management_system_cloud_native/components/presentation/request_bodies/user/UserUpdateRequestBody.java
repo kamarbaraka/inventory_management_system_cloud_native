@@ -1,4 +1,4 @@
-package com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies;
+package com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.user;
 
 import com.kamar.inventory_management_system_cloud_native.components.persistence.entities.User;
 
