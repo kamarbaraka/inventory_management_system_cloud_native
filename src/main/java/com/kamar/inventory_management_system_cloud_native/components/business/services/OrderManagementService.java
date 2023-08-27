@@ -4,6 +4,7 @@ import com.kamar.inventory_management_system_cloud_native.components.persistence
 import com.kamar.inventory_management_system_cloud_native.components.persistence.repositories.*;
 import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.order.ItemOrderAddRequest;
 import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.order.ItemOrderRequest;
+import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.payment.PaymentDetails;
 import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.payment.PaymentRequest;
 import com.kamar.inventory_management_system_cloud_native.components.presentation.response_bodies.implementation.order.AddOrderResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class OrderManagementService {
     }
 
     @Transactional
-    public AddOrderResponse addOrder(ItemOrderAddRequest request){
+    public AddOrderResponse addOrder(PaymentDetails request){
 
         /*construct a response*/
         AddOrderResponse response = new AddOrderResponse();
@@ -66,16 +67,24 @@ public class OrderManagementService {
             response.getItems().add(detail.getItemName());
         });
 
+        /*construct a payment*/
+        Payment payment = new Payment();
+        payment.setBankName(request.getBankName());
+        payment.setAccountName(request.getAccountName());
+        payment.setMobileNumber(request.getMobileNumber());
+        payment.setPaymentType(request.getPaymentType());
+        payment.setPaymentAmount(tempOrder.getTotalAmount());
+
         /*confirm the order*/
         ItemOrder order = new ItemOrder();
         order.setCustomer(tempOrder.getCustomer());
-        order.setPayment(request.getPayment());
+        order.setPayment(payment);
         order.setOrderStatus("pending");
         this.orderRepository.save(order);
 
         /*construct and persist the transaction*/
         Transaction transaction = new Transaction();
-        transaction.setPayment(request.getPayment());
+        transaction.setPayment(payment);
         transactionRepository.save(transaction);
 
         /*delete the temporary order*/
@@ -105,13 +114,17 @@ public class OrderManagementService {
         order.getOrderDetails().addAll(orderDetails);
         order.setTimePlaced(LocalTime.now());
 
+        /*get the total amount*/
+        List<BigDecimal> amounts = new ArrayList<>();
+        orderDetails.forEach(itemOrder -> amounts.add(this.stockRepository.findStockByItemName(
+                itemOrder.getItemName()).getItemPrice().multiply(BigDecimal.valueOf(itemOrder.getItemCount()))));
+        BigDecimal totalAmount = (BigDecimal) amounts.stream().reduce(BigDecimal::add).stream().toArray()[0];
+
+        order.setTotalAmount(totalAmount);
+
         this.orderDetailsRepository.saveAll(orderDetails);
         this.tempOrderRepository.save(order);
 
-        /*get the total amount*/
-        List<BigDecimal> amounts = new ArrayList<>();
-        request.getItems().forEach(itemOrder -> amounts.add(this.stockRepository.findStockByItemName(itemOrder.getItemName()).getItemPrice()));
-        BigDecimal totalAmount = (BigDecimal) amounts.stream().reduce(BigDecimal::multiply).stream().toArray()[0];
 
         /*construct a payment*/
         Payment payment = new Payment();

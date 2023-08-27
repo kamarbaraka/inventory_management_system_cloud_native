@@ -5,6 +5,7 @@ import com.kamar.inventory_management_system_cloud_native.components.persistence
 import com.kamar.inventory_management_system_cloud_native.components.persistence.entities.Payment;
 import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.order.ItemOrderAddRequest;
 import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.order.ItemOrderRequest;
+import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.payment.PaymentDetails;
 import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.payment.PaymentRequest;
 import com.kamar.inventory_management_system_cloud_native.components.presentation.response_bodies.implementation.order.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class OrderController {
 
     @PostMapping(value = {"order/add"}, consumes = {"application/json"}, produces = {"application/json"})
     @CrossOrigin(methods = {RequestMethod.POST})
-    public ResponseEntity<OrderAddResponse> add(@RequestBody ItemOrderAddRequest requestBody){
+    public ResponseEntity<OrderAddResponse> add(@RequestBody PaymentDetails requestBody){
 
         /*get the order*/
         AddOrderResponse addOrderResponse = this.orderManagementService.addOrder(requestBody);
@@ -54,7 +55,7 @@ public class OrderController {
 
         /*collect the ordered items*/
 
-        orderDetails.setOrderId(orderDetails.getOrderId());
+        orderDetails.setOrderId(addOrderResponse.getOrder().getOrderId());
         orderDetails.setItemsOrdered(addOrderResponse.getItems());
         orderDetails.setTotalPrice(addOrderResponse.getOrder().getPayment().getPaymentAmount());
 

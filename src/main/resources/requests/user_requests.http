@@ -3,11 +3,11 @@ POST {{host}}/user/register
 Content-Type: application/json
 
 {
-  "username": "edwinj",
-  "firstName": "edwin",
-  "lastName": "jakarta",
-  "role": "ADMIN",
-  "contact": "07124579",
+  "username": "murungaevans",
+  "firstName": "evans",
+  "lastName": "murunga",
+  "role": "CUSTOMER",
+  "contact": "07556925",
   "address": {
     "street": "piloti",
     "city": "Thika",

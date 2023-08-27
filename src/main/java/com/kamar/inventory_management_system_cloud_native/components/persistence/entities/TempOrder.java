@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-import java.sql.Time;
+import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,6 +29,16 @@ public class TempOrder {
     @OneToMany
     @Cascade(value = CascadeType.ALL)
     private final Collection<ItemOrderDetails> orderDetails = new ArrayList<>();
+
+    private BigDecimal totalAmount;
+
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
+    }
 
     public long getOrderId() {
         return orderId;
