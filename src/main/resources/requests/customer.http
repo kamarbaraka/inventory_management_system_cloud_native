@@ -1,0 +1,11 @@
+###
+POST http://localhost:8080/customer/add
+Content-Type: application/json
+Cookie:
+
+{
+  "username": "bolton",
+  "contact": "bolton@gmail.com"
+}
+
+###

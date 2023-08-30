@@ -2,7 +2,6 @@ package com.kamar.inventory_management_system_cloud_native.components.business.s
 
 import com.kamar.inventory_management_system_cloud_native.components.persistence.entities.*;
 import com.kamar.inventory_management_system_cloud_native.components.persistence.repositories.*;
-import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.order.ItemOrderAddRequest;
 import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.order.ItemOrderRequest;
 import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.payment.PaymentDetails;
 import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.payment.PaymentRequest;
@@ -15,8 +14,6 @@ import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * the order management service.
