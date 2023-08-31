@@ -3,18 +3,15 @@ package com.kamar.inventory_management_system_cloud_native.components.presentati
 import lombok.Getter;
 import lombok.Setter;
 
-
 /**
- * the request to dispatch an order.
+ * the complete order request body.
  * @author kamar baraka.*/
-
 
 @Getter
 @Setter
-public class DispatchOrderRequest {
+public class CompleteOrderRequest {
 
-    private long[] orderIds;
-    private String usernameOfDispatcher;
-
-    private String dispatchLocation;
+    private long orderId;
+    private String signer;
+    private String location;
 }

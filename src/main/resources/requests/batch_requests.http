@@ -1,0 +1,9 @@
+### dispatch a batch
+POST {{host}}/batch/dispatch
+Content-Type: application/json
+
+{
+  "carrier": "murungaevans",
+  "batchId": 2,
+  "destination": "nairobi"
+}

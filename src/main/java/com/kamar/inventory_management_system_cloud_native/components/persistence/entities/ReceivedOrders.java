@@ -19,7 +19,6 @@ import java.time.LocalDateTime;
 public class ReceivedOrders {
 
     @Id
-    @OneToOne(targetEntity = ItemOrder.class)
     private long orderId;
 
     @ManyToOne(targetEntity = User.class)

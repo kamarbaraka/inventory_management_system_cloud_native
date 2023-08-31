@@ -3,18 +3,18 @@ POST {{host}}/order/request
 Content-Type: application/json
 
 {
-  "customerName": "kamarbaraka",
+  "customerName": "elijahmutune",
   "items": [
     {
       "itemName": "spoon",
-      "itemCount": 12
+      "itemCount": 20
     },
     {
       "itemName": "plate",
       "itemCount": 20
     }, {
-      "itemName": "glass",
-      "itemCount": 5
+      "itemName": "knife",
+      "itemCount": 10
     }
   ]
 }
@@ -24,11 +24,43 @@ POST {{host}}/order/add
 Content-Type: application/json
 
 {
-  "orderId": 4,
+  "orderId": 2,
   "payment": {
     "paymentType": "bank payment",
     "bankName": "equity",
     "accountName": "kamarbaraka",
     "mobileNumber": "0706354825"
   }
+}
+
+### dispatch order
+POST {{host}}/order/dispatch
+Content-Type: application/json
+
+{
+  "orderIds": [
+    2
+  ],
+  "usernameOfDispatcher": "kamarbaraka",
+  "dispatchLocation": "thika"
+}
+
+### receive an order
+POST {{host}}/order/receive
+Content-Type: application/json
+
+{
+  "batchId": 2,
+  "recipient": "kamarbaraka",
+  "location": "nairobi"
+}
+
+### complete an order
+POST {{host}}/order/complete
+Content-Type: application/json
+
+{
+  "orderId": 1,
+  "signer": "elijahmutune",
+  "location": "nairobi"
 }

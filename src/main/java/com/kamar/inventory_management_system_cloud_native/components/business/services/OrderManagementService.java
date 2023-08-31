@@ -2,6 +2,7 @@ package com.kamar.inventory_management_system_cloud_native.components.business.s
 
 import com.kamar.inventory_management_system_cloud_native.components.persistence.entities.*;
 import com.kamar.inventory_management_system_cloud_native.components.persistence.repositories.*;
+import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.order.CompleteOrderRequest;
 import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.order.DispatchOrderRequest;
 import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.order.ItemOrderRequest;
 import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.order.ReceiveOrderRequest;
@@ -15,7 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 /**
  * the order management service.
@@ -24,17 +28,17 @@ import java.util.List;
 @Service
 public class OrderManagementService {
 
-    private ItemOrderRepository orderRepository;
-    private UserRepository userRepository;
-    private StockRepository stockRepository;
-    private TransactionRepository transactionRepository;
-    private PaymentRepository paymentRepository;
-    private TempOrderRepository tempOrderRepository;
-    private ItemOrderDetailsRepository orderDetailsRepository;
-    private DispatchedOrdersRepository dispatchedOrdersRepository;
-    private ReceivedOrdersRepository receivedOrdersRepository;
-    private CompletedOrdersRepository completedOrdersRepository;
-    private BatchOfOrdersRepository batchOfOrdersRepository;
+    private final ItemOrderRepository orderRepository;
+    private final UserRepository userRepository;
+    private final StockRepository stockRepository;
+    private final TransactionRepository transactionRepository;
+    private final PaymentRepository paymentRepository;
+    private final TempOrderRepository tempOrderRepository;
+    private final ItemOrderDetailsRepository orderDetailsRepository;
+    private final DispatchedOrdersRepository dispatchedOrdersRepository;
+    private final ReceivedOrdersRepository receivedOrdersRepository;
+    private final CompletedOrdersRepository completedOrdersRepository;
+    private final BatchOfOrdersRepository batchOfOrdersRepository;
 
     @Autowired
     public OrderManagementService(ItemOrderRepository orderRepository, UserRepository userRepository,
@@ -75,6 +79,7 @@ public class OrderManagementService {
         orderDetails.forEach(detail -> {
             Stock stock = this.stockRepository.findStockByItemName(detail.getItemName());
             stock.setItemCount(stock.getItemCount() - detail.getItemCount());
+            this.stockRepository.save(stock);
             response.getItems().add(detail.getItemName());
         });
 
@@ -85,6 +90,7 @@ public class OrderManagementService {
         payment.setMobileNumber(request.getMobileNumber());
         payment.setPaymentType(request.getPaymentType());
         payment.setPaymentAmount(tempOrder.getTotalAmount());
+        this.paymentRepository.save(payment);
 
         /*confirm the order*/
         ItemOrder order = new ItemOrder();
@@ -157,7 +163,10 @@ public class OrderManagementService {
         /*construct a batch*/
         BatchOfOrders batch = new BatchOfOrders();
 
-        request.getOrderIds().forEach(orderId -> {
+        long[] orderIds = request.getOrderIds();
+        LongStream stream = Arrays.stream(orderIds);
+
+        stream.forEach(orderId -> {
             /*get the order from the database*/
             ItemOrder order = this.orderRepository.findItemOrderByOrderId(orderId);
             /*get the user who dispatched the order*/
@@ -169,6 +178,8 @@ public class OrderManagementService {
             dispatchedOrder.setDispatcher(dispatcher);
             /*set the dispatch location*/
             dispatchedOrder.setDispatchLocation(request.getDispatchLocation());
+            /*persist the dispatched order*/
+            this.dispatchedOrdersRepository.save(dispatchedOrder);
 
             /*set and persist the order status*/
             order.setOrderStatus("Dispatched");
@@ -180,6 +191,8 @@ public class OrderManagementService {
             batch.setStatus("released");
             /*add the order*/
             batch.getOrders().add(order);
+            /*persist the batch*/
+            this.batchOfOrdersRepository.save(batch);
 
         });
 
@@ -215,13 +228,40 @@ public class OrderManagementService {
             this.batchOfOrdersRepository.save(batch);
             return true;
         }
-
-        batch.setStatus("transit");
-        this.batchOfOrdersRepository.save(batch);
         return true;
     }
 
-    public boolean completeOrder(){
-        return true;
+    @Transactional
+    public int completeOrder(CompleteOrderRequest request){
+
+        /*construct completed order*/
+        CompletedOrders completedOrder = new CompletedOrders();
+
+        /*get the signer*/
+        User signer = this.userRepository.findUserByUsername(request.getSigner());
+        /*get the order*/
+        ItemOrder order = this.orderRepository.findItemOrderByOrderId(request.getOrderId());
+
+        /*complete the order*/
+        completedOrder.setOrderId(order.getOrderId());
+        completedOrder.setSigner(signer);
+        completedOrder.setLocation(request.getLocation());
+        this.completedOrdersRepository.save(completedOrder);
+
+        /*update the order status*/
+        order.setOrderStatus("completed");
+        this.orderRepository.save(order);
+
+        /*remove the completed order from the dispatch and received tables*/
+        this.dispatchedOrdersRepository.deleteDispatchedOrdersByOrderId(order.getOrderId());
+        this.receivedOrdersRepository.deleteReceivedOrdersByOrderId(order.getOrderId());
+
+        /*credit the user some points*/
+        int totalPrice = order.getPayment().getPaymentAmount().intValue();
+        int points = (totalPrice/1000) * 10;
+        signer.setTotalPoints(signer.getTotalPoints() + points);
+        this.userRepository.save(signer);
+
+        return points;
     }
 }

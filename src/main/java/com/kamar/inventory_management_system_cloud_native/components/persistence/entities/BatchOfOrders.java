@@ -27,7 +27,8 @@ public class BatchOfOrders {
 
     private String destination;
 
-    private String carrier;
+    @ManyToOne(targetEntity = User.class)
+    private User carrier;
 
     private String location;
 
