@@ -2,7 +2,9 @@ package com.kamar.inventory_management_system_cloud_native.components.business.s
 
 import com.kamar.inventory_management_system_cloud_native.components.persistence.entities.*;
 import com.kamar.inventory_management_system_cloud_native.components.persistence.repositories.*;
+import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.order.DispatchOrderRequest;
 import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.order.ItemOrderRequest;
+import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.order.ReceiveOrderRequest;
 import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.payment.PaymentDetails;
 import com.kamar.inventory_management_system_cloud_native.components.presentation.request_bodies.payment.PaymentRequest;
 import com.kamar.inventory_management_system_cloud_native.components.presentation.response_bodies.implementation.order.AddOrderResponse;
@@ -29,12 +31,20 @@ public class OrderManagementService {
     private PaymentRepository paymentRepository;
     private TempOrderRepository tempOrderRepository;
     private ItemOrderDetailsRepository orderDetailsRepository;
+    private DispatchedOrdersRepository dispatchedOrdersRepository;
+    private ReceivedOrdersRepository receivedOrdersRepository;
+    private CompletedOrdersRepository completedOrdersRepository;
+    private BatchOfOrdersRepository batchOfOrdersRepository;
 
     @Autowired
     public OrderManagementService(ItemOrderRepository orderRepository, UserRepository userRepository,
                                   StockRepository stockRepository, TransactionRepository transactionRepository,
                                   PaymentRepository paymentRepository, TempOrderRepository tempOrderRepository,
-                                  ItemOrderDetailsRepository orderDetailsRepository) {
+                                  ItemOrderDetailsRepository orderDetailsRepository,
+                                  DispatchedOrdersRepository dispatchedOrdersRepository,
+                                  ReceivedOrdersRepository receivedOrdersRepository,
+                                  CompletedOrdersRepository completedOrdersRepository,
+                                  BatchOfOrdersRepository batchOfOrdersRepository) {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
         this.stockRepository = stockRepository;
@@ -42,6 +52,10 @@ public class OrderManagementService {
         this.paymentRepository = paymentRepository;
         this.tempOrderRepository = tempOrderRepository;
         this.orderDetailsRepository = orderDetailsRepository;
+        this.dispatchedOrdersRepository = dispatchedOrdersRepository;
+        this.receivedOrdersRepository = receivedOrdersRepository;
+        this.completedOrdersRepository = completedOrdersRepository;
+        this.batchOfOrdersRepository = batchOfOrdersRepository;
     }
 
     @Transactional
@@ -134,5 +148,80 @@ public class OrderManagementService {
 
         /*return the payment request*/
         return paymentRequest;
+    }
+
+    public long dispatchOrder(DispatchOrderRequest request){
+
+        /*construct the dispatcher of the order*/
+        DispatchedOrders dispatchedOrder = new DispatchedOrders();
+        /*construct a batch*/
+        BatchOfOrders batch = new BatchOfOrders();
+
+        request.getOrderIds().forEach(orderId -> {
+            /*get the order from the database*/
+            ItemOrder order = this.orderRepository.findItemOrderByOrderId(orderId);
+            /*get the user who dispatched the order*/
+            User dispatcher = this.userRepository.findUserByUsername(request.getUsernameOfDispatcher());
+
+            /*set the dispatched order*/
+            dispatchedOrder.setOrderId(order.getOrderId());
+            /*set the dispatcher*/
+            dispatchedOrder.setDispatcher(dispatcher);
+            /*set the dispatch location*/
+            dispatchedOrder.setDispatchLocation(request.getDispatchLocation());
+
+            /*set and persist the order status*/
+            order.setOrderStatus("Dispatched");
+            this.orderRepository.save(order);
+
+            /*set the batch location*/
+            batch.setLocation(request.getDispatchLocation());
+            /*set the batch status (release the batch)*/
+            batch.setStatus("released");
+            /*add the order*/
+            batch.getOrders().add(order);
+
+        });
+
+        /*on success return true*/
+        return batch.getBatchId();
+    }
+
+    public boolean receiveOrder(ReceiveOrderRequest request){
+
+        /*construct received orders*/
+        ReceivedOrders receivedOrder = new ReceivedOrders();
+
+        /*get the batch*/
+        BatchOfOrders batch = this.batchOfOrdersRepository.findBatchOfOrdersByBatchId(request.getBatchId());
+        /*get the recipient*/
+        User recipient = this.userRepository.findUserByUsername(request.getRecipient());
+
+        /*get and update the orders*/
+        batch.getOrders().forEach(order -> {
+
+            /*set and persist the order*/
+            receivedOrder.setOrderId(order.getOrderId());
+            receivedOrder.setRecipient(recipient);
+            receivedOrder.setReceiveLocation(request.getLocation());
+            this.receivedOrdersRepository.save(receivedOrder);
+        });
+
+        /*update the batch*/
+        String location = request.getLocation();
+        if (batch.getLocation().equals(location)){
+
+            batch.setStatus("completed");
+            this.batchOfOrdersRepository.save(batch);
+            return true;
+        }
+
+        batch.setStatus("transit");
+        this.batchOfOrdersRepository.save(batch);
+        return true;
+    }
+
+    public boolean completeOrder(){
+        return true;
     }
 }

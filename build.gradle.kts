@@ -29,6 +29,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-rest")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+    compileOnly("org.projectlombok:lombok")
+
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
 //    implementation("org.springframework.boot:spring-boot-starter-security")
 
