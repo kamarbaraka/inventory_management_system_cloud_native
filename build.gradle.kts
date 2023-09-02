@@ -1,6 +1,6 @@
 plugins {
     java
-    id("org.springframework.boot") version "3.2.0-SNAPSHOT"
+    id("org.springframework.boot") version "3.1.3"
     id("io.spring.dependency-management") version "1.1.3"
 }
 
@@ -32,9 +32,14 @@ dependencies {
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
     implementation("org.projectlombok:lombok:1.18.28")
     annotationProcessor("org.projectlombok:lombok:1.18.28")
+    // https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports
+//    implementation("net.sf.jasperreports:jasperreports:6.20.5")
+    // https://mvnrepository.com/artifact/com.github.librepdf/openpdf
+//    implementation("com.github.librepdf:openpdf:1.3.30.jaspersoft.2")
 
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
 //    implementation("org.springframework.boot:spring-boot-starter-security")
+
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("com.mysql:mysql-connector-j")

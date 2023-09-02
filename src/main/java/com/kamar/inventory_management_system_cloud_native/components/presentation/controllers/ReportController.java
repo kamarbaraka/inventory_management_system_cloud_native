@@ -1,9 +1,12 @@
 package com.kamar.inventory_management_system_cloud_native.components.presentation.controllers;
 
+import com.kamar.inventory_management_system_cloud_native.components.business.services.ReportingService;
 import com.kamar.inventory_management_system_cloud_native.components.presentation.response_bodies.implementation.report.CustomerReportResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -11,11 +14,25 @@ import org.springframework.web.bind.annotation.RestController;
  * @author kamar baraka.*/
 
 @RestController
-@RequestMapping(value = {"/report"}, consumes = {"application/json"}, produces = {"application/json"})
 @CrossOrigin
 public class ReportController {
 
+    private final ReportingService reportingService;
+
+    @Autowired
+    public ReportController(ReportingService reportingService) {
+        this.reportingService = reportingService;
+    }
+
     public ResponseEntity<CustomerReportResponse> customerReport(){
         return null;
+    }
+
+    @GetMapping(value = {"/report/order"})
+    public ResponseEntity<byte[]> orderReport() throws Exception{
+
+        byte[] report = null;
+
+        return new ResponseEntity<>(report, HttpStatus.OK);
     }
 }
