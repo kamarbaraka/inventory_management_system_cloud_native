@@ -24,7 +24,7 @@ POST {{host}}/order/add
 Content-Type: application/json
 
 {
-  "orderId": 2,
+  "orderId": 3,
   "payment": {
     "paymentType": "bank payment",
     "bankName": "equity",
@@ -39,7 +39,7 @@ Content-Type: application/json
 
 {
   "orderIds": [
-    2
+    52
   ],
   "usernameOfDispatcher": "kamarbaraka",
   "dispatchLocation": "thika"
@@ -50,7 +50,7 @@ POST {{host}}/order/receive
 Content-Type: application/json
 
 {
-  "batchId": 2,
+  "batchId": 3,
   "recipient": "kamarbaraka",
   "location": "nairobi"
 }

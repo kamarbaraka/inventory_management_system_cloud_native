@@ -4,12 +4,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * the item order request details.
  * @author kamar baraka.*/
 
 @Entity
+@Getter
+@Setter
 public class ItemOrderDetails {
 
     @Id
@@ -19,28 +23,4 @@ public class ItemOrderDetails {
     private String itemName;
 
     private int itemCount;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getItemName() {
-        return itemName;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
-
-    public int getItemCount() {
-        return itemCount;
-    }
-
-    public void setItemCount(int itemCount) {
-        this.itemCount = itemCount;
-    }
 }

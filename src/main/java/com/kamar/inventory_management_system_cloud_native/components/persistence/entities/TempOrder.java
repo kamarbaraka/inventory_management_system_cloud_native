@@ -1,6 +1,8 @@
 package com.kamar.inventory_management_system_cloud_native.components.persistence.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
@@ -14,6 +16,8 @@ import java.util.Collection;
  * @author kamar baraka.*/
 
 @Entity
+@Getter
+@Setter
 public class TempOrder {
 
     @Id
@@ -31,40 +35,4 @@ public class TempOrder {
     private final Collection<ItemOrderDetails> orderDetails = new ArrayList<>();
 
     private BigDecimal totalAmount;
-
-    public BigDecimal getTotalAmount() {
-        return totalAmount;
-    }
-
-    public void setTotalAmount(BigDecimal totalAmount) {
-        this.totalAmount = totalAmount;
-    }
-
-    public long getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(long orderId) {
-        this.orderId = orderId;
-    }
-
-    public LocalTime getTimePlaced() {
-        return timePlaced;
-    }
-
-    public void setTimePlaced(LocalTime timePlaced) {
-        this.timePlaced = timePlaced;
-    }
-
-    public User getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(User customer) {
-        this.customer = customer;
-    }
-
-    public Collection<ItemOrderDetails> getOrderDetails() {
-        return orderDetails;
-    }
 }

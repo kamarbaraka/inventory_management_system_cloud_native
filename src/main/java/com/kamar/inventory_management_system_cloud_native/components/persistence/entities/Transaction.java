@@ -1,6 +1,8 @@
 package com.kamar.inventory_management_system_cloud_native.components.persistence.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -9,6 +11,8 @@ import java.time.LocalDateTime;
  * @author kamar baraka.*/
 
 @Entity
+@Getter
+@Setter
 public class Transaction {
 
     @Id
@@ -21,19 +25,4 @@ public class Transaction {
 
     private final LocalDateTime dateTime = LocalDateTime.now();
 
-    public long getTransactionId() {
-        return transactionId;
-    }
-
-    public Payment getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Payment payment) {
-        this.payment = payment;
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
 }

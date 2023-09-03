@@ -3,6 +3,8 @@ package com.kamar.inventory_management_system_cloud_native.components.persistenc
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
@@ -11,6 +13,8 @@ import java.math.BigDecimal;
  * @author kamar baraka.*/
 
 @Entity
+@Getter
+@Setter
 public class Payment {
 
     @Id
@@ -26,51 +30,5 @@ public class Payment {
     private String mobileNumber;
 
     private BigDecimal paymentAmount;
-
-
-
-    public long getPaymentId() {
-        return paymentId;
-    }
-
-    public String getPaymentType() {
-        return paymentType;
-    }
-
-    public void setPaymentType(String paymentType) {
-        this.paymentType = paymentType;
-    }
-
-    public String getBankName() {
-        return bankName;
-    }
-
-    public void setBankName(String bankName) {
-        this.bankName = bankName;
-    }
-
-    public String getAccountName() {
-        return accountName;
-    }
-
-    public void setAccountName(String accountName) {
-        this.accountName = accountName;
-    }
-
-    public String getMobileNumber() {
-        return mobileNumber;
-    }
-
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
-    }
-
-    public BigDecimal getPaymentAmount() {
-        return paymentAmount;
-    }
-
-    public void setPaymentAmount(BigDecimal amount) {
-        this.paymentAmount = amount;
-    }
 
 }

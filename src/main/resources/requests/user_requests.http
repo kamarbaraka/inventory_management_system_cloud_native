@@ -3,10 +3,10 @@ POST {{host}}/user/register
 Content-Type: application/json
 
 {
-  "username": "elijahmutune",
-  "firstName": "elijah",
-  "lastName": "mutune",
-  "role": "CUSTOMER",
+  "username": "bolton",
+  "firstName": "bolton",
+  "lastName": "bolton",
+  "role": "ADMIN",
   "contact": "0714585815",
   "address": {
     "street": "kiganjo",
@@ -25,7 +25,7 @@ POST {{host}}/user/login
 Content-Type: application/json
 
 {
-  "username": "kamarbaraka",
+  "username": "bolton",
   "password": "123456"
 }
 

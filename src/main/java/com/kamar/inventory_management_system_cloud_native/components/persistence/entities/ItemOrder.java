@@ -1,6 +1,8 @@
 package com.kamar.inventory_management_system_cloud_native.components.persistence.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,6 +12,8 @@ import java.util.Collection;
  * @author kamar baraka.*/
 
 @Entity
+@Getter
+@Setter
 public class ItemOrder {
 
     @Id
@@ -27,35 +31,4 @@ public class ItemOrder {
 
     private String orderStatus;
 
-    public Payment getPayment() {
-        return payment;
-    }
-
-    public void setPayment(Payment payment) {
-        this.payment = payment;
-    }
-
-    public long getOrderId() {
-        return orderId;
-    }
-
-    public User getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(User customer) {
-        this.customer = customer;
-    }
-
-    public String getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(String orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
-    public Collection<Stock> getItems() {
-        return stocks;
-    }
 }

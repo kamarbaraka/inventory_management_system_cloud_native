@@ -23,6 +23,14 @@ repositories {
     maven { url = uri("https://repo.spring.io/snapshot") }
 }
 
+sourceSets{
+    main{
+        resources{
+            srcDir("src/main/resources")
+        }
+    }
+}
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")

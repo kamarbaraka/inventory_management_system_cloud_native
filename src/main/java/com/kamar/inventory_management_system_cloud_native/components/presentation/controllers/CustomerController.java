@@ -1,6 +1,6 @@
 package com.kamar.inventory_management_system_cloud_native.components.presentation.controllers;
 
-import com.kamar.inventory_management_system_cloud_native.components.business.services.CustomerService;
+/*import com.kamar.inventory_management_system_cloud_native.components.business.services.CustomerService;
 import com.kamar.inventory_management_system_cloud_native.components.persistence.entities.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,4 +27,4 @@ public class CustomerController {
         return new ResponseEntity<>(customer1, HttpStatus.CREATED);
 
     }
-}
+}*/
