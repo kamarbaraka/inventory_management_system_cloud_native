@@ -20,8 +20,8 @@ import java.util.List;
 @Service
 public class UserManagementService {
 
-    private UserRepository userRepository;
-    private AddressRepository addressRepository;
+    private final UserRepository userRepository;
+    private final AddressRepository addressRepository;
 
     @Autowired
     public UserManagementService(UserRepository userRepository, AddressRepository addressRepository) {
@@ -71,6 +71,9 @@ public class UserManagementService {
         return user;
     }
 
+    /**
+     * deleting a user.
+     * @param requestBody the request body for deleting a user.*/
     @Transactional
     public boolean delete(UserDeleteRequestBody requestBody){
 
